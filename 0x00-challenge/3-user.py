@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """
- User Model
- """
+User Model
+"""
 import hashlib
 import uuid
 
@@ -32,29 +32,29 @@ class User():
     @password.setter
     def password(self, pwd):
         """
-        Password setter:
-        - `None` if `pwd` is `None`
-        - `None` if `pwd` is not a string
-        - Hash `pwd` in MD5 before assign to `__password`
-        """
-        if pwd is not None and type(pwd) is str:
+         Password setter:
+         - `None` if `pwd` is `None`
+         - `None` if `pwd` is not a string
+         - Hash `pwd` in MD5 before assign to `__password`
+         """
+        if pwd is None or type(pwd) is not str:
             self.__password = None
         else:
-            self._password = hashlib.md5(pwd.encode()).hexdigest().lower()
+            self.__password = hashlib.md5(pwd.encode()).hexdigest().lower()
 
     def is_valid_password(self, pwd):
         """
         Valid password:
-        -False` if `pwd` is `None`
+        - `False` if `pwd` is `None`
         - `False` if `pwd` is not a string
         - `False` if `__password` is `None`
-        -compare `__password` and the MD5 value of `pwd`
+        - Compare `__password` and the MD5 value of `pwd`
         """
         if pwd is None or type(pwd) is not str:
             return False
-        if self.__password is None:
+        if self.password is None:
             return False
-        return hashlib.md5(pwd.encode()).hexdigest().lower() == self.__password
+        return hashlib.md5(pwd.encode()).hexdigest().lower() == self.password
 
 
 if __name__ == '__main__':
@@ -85,11 +85,11 @@ if __name__ == '__main__':
         print("User.password should be None if setter to an integer")
 
     if not user_1.is_valid_password(u_pwd):
-        print("is_valid_password should return True if it's the right \
+        print("is_valid_password should return True if it's the right\
                 password")
 
     if user_1.is_valid_password("Fakepwd"):
-        print("is_valid_password should return False if it's not the right \
+        print("is_valid_password should return False if it's not the right\
                 password")
 
     if user_1.is_valid_password(None):
@@ -99,5 +99,5 @@ if __name__ == '__main__':
         print("is_valid_password should return False if compare with integer")
 
     if user_2.is_valid_password("No pwd"):
-        print("is_valid_password should return False if no password set \
+        print("is_valid_password should return False if no password set\
                 before")
